@@ -30,7 +30,7 @@
 
         <div class="catagory to-do">    
             <div class="heading">To-Do</div>
-            <div class="taskarea">
+            <div class="taskarea" data-set="to-do">
                 <!-- <div class="wrapper-task">
                     <div class="id">ID</div>
                     <div class="title">Title</div>
@@ -41,18 +41,18 @@
         </div>
         <div class="catagory doing">
             <div class="heading">Doing</div>
-            <div class="taskarea"></div>
+            <div class="taskarea" data-set="doing"></div>
             <button class="add">+ Add</button>
         </div> 
         <div class="catagory done">
             <div class="heading">Done</div>
-            <div class="taskarea"></div>
+            <div class="taskarea" data-set="done"></div>
             <button class="add">+ Add</button>
         </div> 
     </section>
     <div class="new-task hide">
-        <div class="task-heading" style="font-size: large; font-weight: 500;">Create Task</div>
-        <textarea placeholder="Title" class="task-title"></textarea>
+        <div class="task-heading" style="font-size: large; font-weight: 600; padding-top: 10px;">Create Task</div>
+        <textarea placeholder="Task-title" class="task-title"></textarea>
         <textarea placeholder="Task details" class="task-detail"></textarea>
         <div class="action">
             <button class="create">Create</button>
