@@ -85,9 +85,18 @@ function createTask(){
         <div class="id">ID: ${idRef}</div>
         <div class="title">Title: ${titleRef.value}</div>
         <div class="detail"> Details: ${contentRef}</div>
+        <div class="delete">
+            <i class="fa-solid fa-trash-can"></i>
+        </div>
     `
     const taskareaRef = targetPlace.querySelector('.taskarea');
     taskareaRef.appendChild(taskRef);
+    const deleteRef = taskRef.querySelector('.delete');
+    deleteRef.addEventListener('click',(e) => {
+        const selectedTaskRef = e.target.closest('.wrapper-task');
+        console.log(selectedTaskRef);
+        selectedTaskRef.classList.add('hide');
+    });    
     titleRef.value = '';
     detailRef.value = ''; 
 };

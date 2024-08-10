@@ -164,3 +164,17 @@ section {
     padding: .5rem;
     font-size: medium;
 }
+
+.wrapper-task .id{
+    color: rgb(129, 126, 126);
+}
+
+.wrapper-task .title{
+    color: cornflowerblue;
+}
+
+.wrapper-task .delete{
+    color: rgba(240, 41, 41, 0.932);
+    display: flex;
+    justify-content: end;
+}
