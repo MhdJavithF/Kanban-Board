@@ -57,6 +57,23 @@ section {
 
 .delete {
     cursor: pointer;
+    position: relative;
+}
+.delete p {
+    visibility: hidden;
+    position: absolute;
+}
+
+.action .delete:hover p {
+    visibility: visible;
+    width: 4.5rem;
+    top: 100%; 
+    transform: translateX(-50%);
+    font-size: medium;
+    margin-top: 1rem;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 5px;
 }
 
 .sort {
