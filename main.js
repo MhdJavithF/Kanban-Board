@@ -10,8 +10,6 @@ const clearArrayRef = document.querySelector('.action .delete');
 
 let targetPlace;
 
-window.alert('Please clear older cookies by clicking Delete icon!');
-
 createBtn.addEventListener('click', function(e) {
     targetPlace = document;
     toggle();
@@ -83,6 +81,8 @@ function addDataInStorage(newTask){
     tasks.push(newTask);
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
+
+window.alert('Please clear older cookies by clicking Delete icon!');
 
 clearArrayRef.addEventListener('click', (e) => {
     // console.log("Cleared array elements");
