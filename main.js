@@ -10,6 +10,8 @@ const clearArrayRef = document.querySelector('.action .delete');
 
 let targetPlace;
 
+window.alert('Please clear older cookies by clicking Delete icon!');
+
 createBtn.addEventListener('click', function(e) {
     targetPlace = document;
     toggle();
@@ -46,7 +48,7 @@ detailRef.addEventListener('keypress', function(e) {
             return;
         }
         createTask();
-        console.log("task created!");
+        console.log("Task created!");
         toggle();
     }
 });
@@ -75,14 +77,12 @@ actionRef.addEventListener('click', (e) => {
     }
 });
 
-const tasks = JSON.parse(localStorage.getItem('tasks') || []);
+const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
 
 function addDataInStorage(newTask){
     tasks.push(newTask);
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
-
-window.alert('Please clear older cookies by clicking Delete icon!');
 
 clearArrayRef.addEventListener('click', (e) => {
     // console.log("Cleared array elements");
@@ -108,7 +108,7 @@ function createTask() {
     const taskareaRef = targetPlace.querySelector('.taskarea');
     const newTask = {
                         id: idRef,
-                        element: taskRef 
+                        element: taskRef.outerHTML 
                     };                      // Store the task object in the array
         
     taskareaRef.appendChild(taskRef);
@@ -121,7 +121,6 @@ function createTask() {
 
     // console.log(tasks);
 }
-
 
 function deleteData(taskId) {
     const taskIndex = tasks.findIndex((task) => task.id === parseInt(taskId));
