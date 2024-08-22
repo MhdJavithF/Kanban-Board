@@ -15,9 +15,9 @@ header {
 }
 
 section {
-    background-color: rgb(228, 227, 227);
+    background-color: rgba(201, 194, 194, 0.644);
     width: 100%;
-    height: 100vh;
+    height: 95vh;
     display: flex;
     justify-content: space-evenly;
 }
@@ -31,7 +31,7 @@ section {
     gap: 10px;
     padding: 5px;
     border-radius: 10px;
-    background-color: rgb(184, 184, 184);
+    background-color: rgb(167, 160, 160);
 }
 
 .wrapper-head input {
@@ -63,7 +63,6 @@ section {
     visibility: hidden;
     position: absolute;
 }
-
 .action .delete:hover p {
     visibility: visible;
     width: 4.5rem;
@@ -74,6 +73,10 @@ section {
     border: 2px solid black;
     border-radius: 20px;
     padding: 5px;
+}
+
+.edit {
+    cursor: pointer;
 }
 
 .sort {
@@ -100,14 +103,14 @@ section {
     text-align: center;
 }
 .catagory.to-do {
-    background-color: rgb(247, 153, 153);
+    background-color: rgba(238, 77, 77, 0.938);
 }
 
 .catagory .taskarea {
     height: 80%;
     width: 90%;
     margin: 1rem;
-    background-color: rgba(0, 0, 0, 0.507);
+    background-color: rgba(34, 32, 32, 0.507);
     overflow: auto;
     box-sizing: border-box;
 }
@@ -123,11 +126,11 @@ section {
 }
 
 .catagory.doing {
-    background-color: rgb(194, 194, 245);
+    background-color: rgba(142, 142, 243, 0.925);
 }
 
 .catagory.done {
-    background-color: rgba(137, 216, 137, 0.911);
+    background-color: rgba(113, 233, 113, 0.911);
 }
 
 .new-task {
@@ -190,8 +193,44 @@ section {
     color: cornflowerblue;
 }
 
-.wrapper-task .delete{
-    color: rgba(240, 41, 41, 0.932);
+.wrapper-task {
+    .detail {
+        pointer-events: none;
+
+        textarea{
+            width: 100%;
+            height: 4rem;
+            background-color: transparent;
+            box-sizing: border-box;
+        }
+    }
+    .detail.active {
+        pointer-events: all;
+    }
+}
+
+.wrapper-task .action{
     display: flex;
     justify-content: end;
+    column-gap: 10px;
+    cursor: pointer;
+
+    .delete{
+        color: rgba(240, 41, 41, 0.932);
+    }
+    
+    .edit{
+        color:rgba(0, 0, 0, 0.671);
+    }
+    
+}
+
+footer {
+    height: 1.2rem;
+    text-align: center;
+    font-size: small;
+    font-weight: 600;
+    color: azure;
+    padding-top: 10px;
+    background-color: rgb(54, 54, 54);
 }

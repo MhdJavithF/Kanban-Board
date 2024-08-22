@@ -14,7 +14,7 @@
     <section>
         <div class="wrapper-head">
             <h3>Options</h3>
-            <input type="text" placeholder="search...">
+            <input type="text" placeholder="Search ID or Title">
             <div class="action">
                 <div class="create">
                     <i class="fa-solid fa-square-plus"></i>
@@ -22,12 +22,13 @@
                 </div>
                 <div class="delete">
                     <i class="fa-solid fa-trash-can"></i>
+                    Delete
                     <p>Clear Data</p>
                 </div>
-                <div class="sort">
+                <!-- <div class="sort">
                     <i class="fa-solid fa-filter"></i>
                     Filter
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -35,13 +36,19 @@
             <div class="heading">To-Do</div>
             <div class="taskarea" data-set="to-do">
                 <!-- <div class="wrapper-task" data-id="000">
-                    <div class="id">ID</div>
-                    <div class="title">Title</div>
-                    <div class="detail">Details</div>
-                    <div class="delete">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </div>
-                </div>                 -->
+                        <div class="id">ID: ${idRef}</div>
+                        <div class="title">Title: ${titleRef.value}</div>
+                        <div class="detail">
+                            Details: <br> <textarea>${contentRef}</textarea>
+                        </div>
+                        <div class="action">
+                            <div class="edit">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                            <div class="delete">
+                                <i class="fa-solid fa-trash-can" data-id="${idRef}"></i> // Store the ID in the trash icon
+                            </div>
+                    </div>                 -->
             </div>
             <button class="add">+ Add</button>
         </div>
@@ -65,6 +72,9 @@
             <button class="close">Cancel</button>
         </div>
     </div>
+    <footer>
+        <h4>Copyright © 2024, Designed by Mohamed-Javith</h4>
+    </footer>
     <script src="main.js"></script>
 </body>
 </html>

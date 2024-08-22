@@ -5,8 +5,9 @@ const titleRef = document.querySelector(".task-title");
 const detailRef = document.querySelector(".task-detail");
 const actionRef = document.querySelector('.new-task .action');
 const addRef = document.querySelectorAll('section .catagory .add');
-const taskareaDelRef = document.querySelector('section');
+const taskareaActionRef = document.querySelector('section');
 const clearArrayRef = document.querySelector('.action .delete');
+const searchRef = document.querySelector('.wrapper-head input');
 
 let targetPlace;
 
@@ -84,43 +85,23 @@ function addDataInStorage(newTask){
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-clearArrayRef.addEventListener('click', (e) => {
-    // console.log("Cleared array elements");
-    tasks.splice(0,tasks.length);
-    alert('Datas were cleared..!')
-});
+function updateDataInStorage(updatedData, taskId) {
+    const taskIndex = tasks.findIndex((task) => task.id === parseInt(taskId));
+    if (taskIndex !== -1) {
+        const taskElement = tasks[taskIndex].element; // This is now the actual DOM element
+        const detailTextarea = taskElement.querySelector('.detail textarea');
+        if (detailTextarea) {
+            detailTextarea.value = updatedData; // Update the textarea value in the DOM
+        }
 
-function createTask() {
-    let idRef = Math.floor(Math.random() * 1000);
-    const contentRef = detailRef.value;
-    const taskRef = document.createElement('div');
-    taskRef.className = 'wrapper-task';
-    taskRef.dataset.id = idRef;     
-    taskRef.innerHTML = `
-        <div class="id">ID: ${idRef}</div>
-        <div class="title">Title: ${titleRef.value}</div>
-        <div class="detail">Details: ${contentRef}</div>
-        <div class="delete">
-            <i class="fa-solid fa-trash-can" data-id="${idRef}"></i> <!-- Store the ID in the trash icon -->
-        </div>
-    `;
+        // Optionally, update any other property if needed
+        tasks[taskIndex].detail = updatedData;
 
-    const taskareaRef = targetPlace.querySelector('.taskarea');
-    const newTask = {
-                        id: idRef,
-                        element: taskRef.outerHTML 
-                    };                      // Store the task object in the array
-        
-    taskareaRef.appendChild(taskRef);
-
-    addDataInStorage(newTask);
-
-    // Clear input fields
-    titleRef.value = '';
-    detailRef.value = '';
-
-    // console.log(tasks);
-}
+        // Update localStorage after modifying the task
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        console.log(tasks[taskIndex]);
+    }
+};
 
 function deleteData(taskId) {
     const taskIndex = tasks.findIndex((task) => task.id === parseInt(taskId));
@@ -129,9 +110,60 @@ function deleteData(taskId) {
         // console.log(tasks);
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
-}
+};
 
-taskareaDelRef.addEventListener('click', (e) => {
+
+clearArrayRef.addEventListener('click', (e) => {
+    // console.log("Cleared array elements");
+    tasks.splice(0,tasks.length);
+    localStorage.clear();
+    alert('Datas were cleared..!')
+});
+
+function createTask() {
+    let idRef = Math.floor(Math.random() * 1000);
+    const contentRef = detailRef.value;
+    const taskRef = document.createElement('div');
+    taskRef.className = 'wrapper-task';
+    taskRef.dataset.id = idRef;
+    taskRef.innerHTML = `
+        <div class="id">ID: ${idRef}</div>
+        <div class="title">Title: ${titleRef.value}</div>
+        <div class="detail">
+            Details: <br> <textarea>${contentRef}</textarea>
+        </div>
+        <div class="action">
+            <div class="edit">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+            <div class="delete">
+                <i class="fa-solid fa-trash-can" data-id="${idRef}"></i>
+            </div>
+        </div>
+    `;
+
+    const taskareaRef = targetPlace.querySelector('.taskarea');
+    const newTask = {
+        id: idRef,
+        title: titleRef.value,
+        element: taskRef // Store the actual DOM element reference, not outerHTML
+    };
+    
+    taskareaRef.appendChild(taskRef);
+    addDataInStorage(newTask);
+
+    const textareaRef = taskRef.querySelector('.detail textarea');
+    textareaRef.addEventListener('change', (e) => {
+        const updatedDetail = e.target.value;
+        updateDataInStorage(updatedDetail, idRef);
+    });
+
+    // Clear input fields
+    titleRef.value = '';
+    detailRef.value = '';
+};
+
+taskareaActionRef.addEventListener('click', (e) => {
     if (e.target.classList.contains('fa-trash-can')) {
         const taskId = e.target.dataset.id;
         const currTaskRef = e.target.closest('.wrapper-task');
@@ -140,4 +172,29 @@ taskareaDelRef.addEventListener('click', (e) => {
         }
         deleteData(taskId);
     }
+
+    else if(e.target.classList.contains('fa-pen-to-square')) {
+        console.log("edit clicked");
+        const currTaskRef = e.target.closest('.wrapper-task').querySelector('.detail');
+        if (currTaskRef) {
+            currTaskRef.classList.toggle('active');
+            console.log(currTaskRef);
+        }
+    }
+});
+
+searchRef.addEventListener('input', (e) => {
+    const searchText = e.target.value.toLowerCase();
+    const taskElements = document.querySelectorAll('.wrapper-task');
+
+    taskElements.forEach(task => {
+        const taskId = task.querySelector('.id').textContent.split(':')[1].trim();
+        const taskTitle = task.querySelector('.title').textContent.split(':')[1].trim().toLowerCase();
+        
+        if (taskId.includes(searchText) || taskTitle.includes(searchText)) {
+            task.style.display = ''; // Show matching task
+        } else {
+            task.style.display = 'none'; // Hide non-matching task
+        }
+    });
 });
